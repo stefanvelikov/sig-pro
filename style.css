@@ -2163,7 +2163,8 @@ figcaption {
   margin-left: 0;
   margin-right: 0;
 }
-.margin-bottom {
+.margin-bottom,
+.margin-bottom.margin-large {
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
@@ -2558,6 +2559,9 @@ figcaption {
 .text-size-small {
   font-size: 0.875rem;
 }
+.text-size-small.text-weight-semibold.text-inline {
+  display: inline;
+}
 .heading-style-h4 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -2719,7 +2723,6 @@ figcaption {
 .container-large {
   width: 100%;
   max-width: 80rem;
-  margin-top: 5rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -4689,6 +4692,86 @@ figcaption {
   left: auto;
   right: 2rem;
 }
+.section_blog-post-header4 {
+  position: relative;
+}
+.blog-post-header4_component {
+  grid-column-gap: 2rem;
+  grid-row-gap: 4rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  align-items: start;
+  display: grid;
+}
+.blog-post-header4_title-wrapper {
+  flex-direction: column;
+}
+.blog-post-header4_meta-wrapper {
+  margin-bottom: 1.5rem;
+}
+.blog-post-header4_category-link {
+  border: 1px solid var(--white);
+  color: var(--white);
+  border-radius: 0.25rem;
+  margin-right: 1rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.blog-post-header4_category-link.w--current {
+  border-bottom: 2px solid #000;
+}
+.blog-post-header4_date-wrapper {
+  margin-top: 0.25rem;
+  display: flex;
+}
+.blog-post-header4_date {
+  margin-left: 0.25rem;
+  font-size: 0.875rem;
+}
+.blog-post-header4_image-wrapper {
+  width: 100%;
+  border-radius: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 66%;
+  position: relative;
+  overflow: hidden;
+}
+.blog-post-header4_image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+}
+.content13_component {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+.content13_metatag-list {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-columns: 1fr;
+  display: grid;
+}
+.content13_image-wrapper {
+  width: 100%;
+  flex: 1;
+}
+.content13_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
 @media screen and (max-width: 991px) {
   .utility-page_image {
     max-width: 30%;
@@ -5052,6 +5135,12 @@ figcaption {
   .hide-desktop {
     display: inline;
   }
+  .blog-post-header4_component {
+    min-height: auto;
+    grid-row-gap: 4rem;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
 }
 @media screen and (max-width: 767px) {
   h1 {
@@ -5360,6 +5449,15 @@ figcaption {
   .content31_content {
     margin-bottom: 2rem;
   }
+  .blog-post-header4_component {
+    grid-row-gap: 3rem;
+  }
+  .content13_metatag-list {
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.5rem;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 @media screen and (max-width: 479px) {
   .utility-page_component {
@@ -5544,6 +5642,9 @@ figcaption {
     flex-direction: column;
     grid-template-columns: 1fr;
   }
+  .blog-post-header4_component {
+    grid-template-columns: 1fr;
+  }
 }
 #w-node-cdad99d0-c9c3-aa93-fa94-15cb6d76a012-6d769ff5,
 #w-node-a111135a-b2eb-dcc7-54a0-290ddd94b337-dd94b2fd,
@@ -5656,6 +5757,16 @@ figcaption {
 }
 #w-node-_4c507211-88eb-ed7f-f8c5-31eb6b1751f0-2a543638 {
   align-self: start;
+}
+#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718bcf-5cc7d4d0,
+#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718bd5-5cc7d4d0,
+#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718bdb-5cc7d4d0,
+#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718be1-5cc7d4d0,
+#w-node-fede031f-548b-adb3-34ef-91956c43b1f2-5cc7d4d0,
+#w-node-fede031f-548b-adb3-34ef-91956c43b1f8-5cc7d4d0,
+#w-node-fede031f-548b-adb3-34ef-91956c43b1fe-5cc7d4d0,
+#w-node-fede031f-548b-adb3-34ef-91956c43b204-5cc7d4d0 {
+  grid-area: span 1 / span 1 / span 1 / span 1;
 }
 @media screen and (max-width: 767px) {
   #w-node-cdad99d0-c9c3-aa93-fa94-15cb6d76a012-6d769ff5 {
