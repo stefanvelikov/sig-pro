@@ -4060,9 +4060,6 @@ figcaption {
   font-size: 1rem;
   line-height: 1.6;
 }
-.form-input:focus {
-  border-color: #000;
-}
 .form-input::-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
