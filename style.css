@@ -2367,9 +2367,20 @@ figcaption {
 .heading-style-h3.gallery10_title {
   color: #fff;
 }
-.text-rich-text h1,
-.text-rich-text h2,
-.text-rich-text h3,
+.text-rich-text h1 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+.text-rich-text h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 2.25rem;
+}
+.text-rich-text h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
 .text-rich-text h4 {
   margin-top: 1.5rem;
   margin-bottom: 1rem;
@@ -2626,6 +2637,10 @@ figcaption {
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.5;
+}
+.heading-style-h6.is-content13 {
+  color: #70e5ae;
+  font-size: 1.125rem;
 }
 .padding-section-large {
   padding-top: 8rem;
@@ -4759,18 +4774,36 @@ figcaption {
   grid-column-gap: 2rem;
   grid-row-gap: 2rem;
   grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: auto auto auto;
   grid-auto-columns: 1fr;
+  justify-content: space-between;
   display: grid;
 }
 .content13_image-wrapper {
   width: 100%;
   flex: 1;
 }
+.content13_image-wrapper.is-two {
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  display: grid;
+  overflow: hidden;
+}
 .content13_image {
   width: 100%;
   height: 100%;
   border-radius: 1rem;
+}
+.content13_image.is-structure {
+  max-height: 35rem;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+.content13_text-wrapper {
+  max-width: 16ch;
 }
 @media screen and (max-width: 991px) {
   .utility-page_image {
@@ -5758,14 +5791,8 @@ figcaption {
 #w-node-_4c507211-88eb-ed7f-f8c5-31eb6b1751f0-2a543638 {
   align-self: start;
 }
-#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718bcf-5cc7d4d0,
-#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718bd5-5cc7d4d0,
-#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718bdb-5cc7d4d0,
-#w-node-_57961c25-06bd-bbd1-50a6-02c4e8718be1-5cc7d4d0,
-#w-node-fede031f-548b-adb3-34ef-91956c43b1f2-5cc7d4d0,
-#w-node-fede031f-548b-adb3-34ef-91956c43b1f8-5cc7d4d0,
-#w-node-fede031f-548b-adb3-34ef-91956c43b1fe-5cc7d4d0,
-#w-node-fede031f-548b-adb3-34ef-91956c43b204-5cc7d4d0 {
+#w-node-cbbc398b-7dda-eb32-4693-9660170887c2-5cc7d4d0,
+#w-node-_0fbae54f-54e2-170f-f12c-351293f6646c-5cc7d4d0 {
   grid-area: span 1 / span 1 / span 1 / span 1;
 }
 @media screen and (max-width: 767px) {
