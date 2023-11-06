@@ -4933,6 +4933,30 @@ figcaption {
 .error-text {
   color: #e23939;
 }
+.partner-wrapper {
+  z-index: 99;
+  background-color: var(--white);
+  color: var(--black);
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  display: flex;
+  position: fixed;
+  top: auto;
+  bottom: 2rem;
+  left: auto;
+  right: 2rem;
+}
+.partner-icon {
+  width: 1.35rem;
+  height: 1.5rem;
+  color: #4253ff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  display: flex;
+}
 @media screen and (max-width: 991px) {
   .utility-page_image {
     max-width: 30%;
