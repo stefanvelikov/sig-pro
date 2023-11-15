@@ -33,7 +33,12 @@ async function fetchSitemap() {
         const pageContent = await axios.get(url);
 
         // Customize this regex pattern as needed to remove specific attributes
-        const cleanedContent = pageContent.data.replace(/data-wf-domain="[^"]*"/g, '').replace(/data-wf-page="[^"]*"/g, '').replace(/data-wf-site="[^"]*"/g, '');
+        let cleanedContent = pageContent.data;
+
+        // Check if the current URL is contact.html, and skip attribute removal
+        if (!url.includes('contact')) {
+          cleanedContent = cleanedContent.replace(/data-wf-domain="[^"]*"/g, '').replace(/data-wf-page="[^"]*"/g, '').replace(/data-wf-site="[^"]*"/g, '');
+        }
 
         // Parse the URL to extract path segments
         const parsedUrl = new URL(url);
