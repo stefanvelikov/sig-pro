@@ -1,28 +1,16 @@
 {
-  "name": "webflow-get",
+  "name": "agota-studio-get",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "web.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/loomchild/webflow-get.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/loomchild/webflow-get/issues"
-  },
-  "homepage": "https://github.com/loomchild/webflow-get#readme",
   "dependencies": {
-    "@actions/core": "^1.5.0",
-    "@actions/github": "^5.0.0",
-    "node-fetch": "^2.6.1",
-    "picomatch": "^2.3.0",
-    "prettier": "^2.3.2",
-    "yaml": "^1.10.2"
+    "axios": "^1.6.2",
+    "xml2js": "^0.6.2"
   }
 }
