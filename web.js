@@ -6,6 +6,7 @@ const path = require('path');
 const sitemapUrl = 'https://agota-studio.webflow.io/sitemap.xml';
 const outputFolder = 'website';
 
+// Main function to fetch and process the sitemap
 async function fetchSitemap() {
   try {
     // Clear the contents of the website folder (excluding .htaccess)
@@ -31,7 +32,7 @@ async function fetchSitemap() {
       try {
         const pageContent = await axios.get(url);
 
-        // Remove specific attributes from the HTML content
+        // Customize this regex pattern as needed to remove specific attributes
         const cleanedContent = pageContent.data.replace(/data-wf-domain="[^"]*"/g, '').replace(/data-wf-page="[^"]*"/g, '').replace(/data-wf-site="[^"]*"/g, '');
 
         // Parse the URL to extract path segments
@@ -49,7 +50,12 @@ async function fetchSitemap() {
         }
 
         // Generate a filename by adding .html to the last non-empty path segment
-        const fileName = pathSegments.length > 0 ? pathSegments.filter(segment => segment)[pathSegments.length - 1] + '.html' : 'index.html';
+        let fileName = pathSegments.length > 0 ? pathSegments.filter(segment => segment)[pathSegments.length - 1] + '.html' : 'index.html';
+
+        // Check if a folder with the same name exists and rename the file to index.html
+        if (fs.existsSync(path.join(currentFolderPath, fileName)) && fs.lstatSync(path.join(currentFolderPath, fileName)).isDirectory()) {
+          fileName = 'index.html';
+        }
 
         // Save the content to a file in the output folder
         const outputPath = path.join(currentFolderPath, fileName);
