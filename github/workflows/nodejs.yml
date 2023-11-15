@@ -1,0 +1,26 @@
+name: Web Fetch
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.8.1  # Change this to your Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Node.js script
+      run: node web.js
