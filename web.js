@@ -3,63 +3,72 @@ const xml2js = require('xml2js');
 const fs = require('fs').promises;
 const path = require('path');
 
-const sitemapUrl = 'https://agota-studio.webflow.io/sitemap.xml';
+const processingDomain = 'https://agota-studio.webflow.io';
+const sitemapRealDomain = 'https://agota.studio';
+const sitemapUrl = `${processingDomain}/sitemap.xml`;
 const outputFolder = 'website';
+const sitemapFileName = 'sitemap.xml';
 
-// Main function to fetch and process the sitemap
 async function fetchSitemap() {
   try {
-    // Clear the contents of the website folder (excluding .htaccess)
-    await clearFolder(outputFolder);
-
-    // Fetch the sitemap XML
+    await clearFolder(outputFolder, [`.htaccess`, sitemapFileName]);
     const response = await axios.get(sitemapUrl);
-
-    // Parse XML to JavaScript object
     const parser = new xml2js.Parser();
     const sitemapObj = await parser.parseStringPromise(response.data);
 
-    // Extract URLs from the sitemap
     const urls = sitemapObj.urlset.url.map(url => url.loc[0]);
 
-    // Create the output folder if it doesn't exist
     await fs.mkdir(outputFolder, { recursive: true });
 
-    // Fetch and save content for each URL
+    const updatedSitemapObj = {
+      ...sitemapObj,
+      urlset: {
+        ...sitemapObj.urlset,
+        url: urls.map(url => {
+          const trimmedUrl = url.trim();
+          const absoluteUrl = new URL(trimmedUrl, processingDomain);
+          return { loc: `${sitemapRealDomain}${absoluteUrl.pathname}` };
+        }),
+      },
+    };
+       
+
+    const builder = new xml2js.Builder();
+    const updatedSitemapXml = builder.buildObject(updatedSitemapObj);
+
+    const sitemapFilePath = path.join(outputFolder, sitemapFileName);
+    await fs.writeFile(sitemapFilePath, updatedSitemapXml);
+
+    console.log(`Updated sitemap saved to ${sitemapFilePath}`);
+
     for (const url of urls) {
       try {
-        const pageContent = await axios.get(url);
-
-        // Customize this regex pattern as needed to remove specific attributes
+        const pageContent = await axios.get(url.trim());
         let cleanedContent = pageContent.data;
 
-        // Check if the current URL is contact.html, and skip attribute removal
         if (!url.includes('contact')) {
-          cleanedContent = cleanedContent.replace(/data-wf-domain="[^"]*"/g, '').replace(/data-wf-page="[^"]*"/g, '').replace(/data-wf-site="[^"]*"/g, '');
+          cleanedContent = cleanedContent.replace(/data-wf-domain="[^"]*"/g, '')
+            .replace(/data-wf-page="[^"]*"/g, '')
+            .replace(/data-wf-site="[^"]*"/g, '');
         }
 
-        // Parse the URL to extract path segments
-        const parsedUrl = new URL(url);
+        const parsedUrl = new URL(url.trim());
         const pathSegments = parsedUrl.pathname.split('/').filter(segment => segment);
 
-        // Create nested folders based on the URL path segments
         let currentFolderPath = outputFolder;
-        for (let i = 0; i < pathSegments.length - 1; i++) { // Exclude the last segment (filename)
+        for (let i = 0; i < pathSegments.length - 1; i++) {
           const segment = pathSegments[i];
           currentFolderPath = path.join(currentFolderPath, segment);
           await fs.mkdir(currentFolderPath, { recursive: true });
         }
 
-        // Generate a filename by adding .html to the last non-empty path segment
-        let fileName = pathSegments.length > 0 ? pathSegments.filter(segment => segment)[pathSegments.length - 1] + '.html' : 'index.html';
-
-        // Check if a folder with the same name exists and rename the file to index.html
+        let fileName = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] + '.html' : 'index.html';
         const filePath = path.join(currentFolderPath, fileName);
+
         if (await isDirectory(filePath)) {
           fileName = 'index.html';
         }
 
-        // Save the content to a file in the output folder
         await fs.writeFile(filePath, cleanedContent);
 
         console.log(`Content for ${url} fetched and saved to ${filePath}`);
@@ -68,20 +77,19 @@ async function fetchSitemap() {
       }
     }
   } catch (error) {
-    console.error('Error fetching sitemap:', error.message);
+    console.error('Error fetching or processing sitemap:', error.message);
   }
 }
 
-// Function to clear folder contents (excluding .htaccess)
-async function clearFolder(folderPath) {
+async function clearFolder(folderPath, excludeFiles = []) {
   try {
     const files = await fs.readdir(folderPath);
 
     for (const file of files) {
-      if (file !== '.htaccess') {
+      if (!excludeFiles.includes(file)) {
         const filePath = path.join(folderPath, file);
         if (await isDirectory(filePath)) {
-          await clearFolder(filePath);
+          await clearFolder(filePath, excludeFiles);
           await fs.rmdir(filePath);
         } else {
           await fs.unlink(filePath);
@@ -93,7 +101,6 @@ async function clearFolder(folderPath) {
   }
 }
 
-// Function to check if a path points to a directory
 async function isDirectory(filePath) {
   try {
     const stat = await fs.stat(filePath);
@@ -103,5 +110,4 @@ async function isDirectory(filePath) {
   }
 }
 
-// Run the function
 fetchSitemap();
