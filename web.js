@@ -93,5 +93,5 @@ function clearFolder(folderPath) {
   }
 }
 
-// Run the function
+// Run the function 
 fetchSitemap();
