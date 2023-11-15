@@ -3,7 +3,7 @@ name: Web Fetch
 on:
   push:
     branches:
-      - main  # Change this to your main branch
+      - v1  # Change this to your main branch
 
 jobs:
   build:
