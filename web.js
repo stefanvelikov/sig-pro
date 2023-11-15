@@ -1,6 +1,6 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
 const sitemapUrl = 'https://agota-studio.webflow.io/sitemap.xml';
@@ -10,7 +10,7 @@ const outputFolder = 'website';
 async function fetchSitemap() {
   try {
     // Clear the contents of the website folder (excluding .htaccess)
-    clearFolder(outputFolder);
+    await clearFolder(outputFolder);
 
     // Fetch the sitemap XML
     const response = await axios.get(sitemapUrl);
@@ -23,9 +23,7 @@ async function fetchSitemap() {
     const urls = sitemapObj.urlset.url.map(url => url.loc[0]);
 
     // Create the output folder if it doesn't exist
-    if (!fs.existsSync(outputFolder)) {
-      fs.mkdirSync(outputFolder);
-    }
+    await fs.mkdir(outputFolder, { recursive: true });
 
     // Fetch and save content for each URL
     for (const url of urls) {
@@ -49,24 +47,22 @@ async function fetchSitemap() {
         for (let i = 0; i < pathSegments.length - 1; i++) { // Exclude the last segment (filename)
           const segment = pathSegments[i];
           currentFolderPath = path.join(currentFolderPath, segment);
-          if (!fs.existsSync(currentFolderPath)) {
-            fs.mkdirSync(currentFolderPath);
-          }
+          await fs.mkdir(currentFolderPath, { recursive: true });
         }
 
         // Generate a filename by adding .html to the last non-empty path segment
         let fileName = pathSegments.length > 0 ? pathSegments.filter(segment => segment)[pathSegments.length - 1] + '.html' : 'index.html';
 
         // Check if a folder with the same name exists and rename the file to index.html
-        if (fs.existsSync(path.join(currentFolderPath, fileName)) && fs.lstatSync(path.join(currentFolderPath, fileName)).isDirectory()) {
+        const filePath = path.join(currentFolderPath, fileName);
+        if (await isDirectory(filePath)) {
           fileName = 'index.html';
         }
 
         // Save the content to a file in the output folder
-        const outputPath = path.join(currentFolderPath, fileName);
-        fs.writeFileSync(outputPath, cleanedContent);
+        await fs.writeFile(filePath, cleanedContent);
 
-        console.log(`Content for ${url} fetched and saved to ${outputPath}`);
+        console.log(`Content for ${url} fetched and saved to ${filePath}`);
       } catch (error) {
         console.error(`Error fetching content for ${url}:`, error.message);
       }
@@ -77,21 +73,35 @@ async function fetchSitemap() {
 }
 
 // Function to clear folder contents (excluding .htaccess)
-function clearFolder(folderPath) {
-  const files = fs.readdirSync(folderPath);
+async function clearFolder(folderPath) {
+  try {
+    const files = await fs.readdir(folderPath);
 
-  for (const file of files) {
-    if (file !== '.htaccess') {
-      const filePath = path.join(folderPath, file);
-      if (fs.lstatSync(filePath).isDirectory()) {
-        clearFolder(filePath);
-        fs.rmdirSync(filePath);
-      } else {
-        fs.unlinkSync(filePath);
+    for (const file of files) {
+      if (file !== '.htaccess') {
+        const filePath = path.join(folderPath, file);
+        if (await isDirectory(filePath)) {
+          await clearFolder(filePath);
+          await fs.rmdir(filePath);
+        } else {
+          await fs.unlink(filePath);
+        }
       }
     }
+  } catch (error) {
+    console.error(`Error clearing folder ${folderPath}:`, error.message);
   }
 }
 
-// Run the function 
+// Function to check if a path points to a directory
+async function isDirectory(filePath) {
+  try {
+    const stat = await fs.stat(filePath);
+    return stat.isDirectory();
+  } catch (error) {
+    return false;
+  }
+}
+
+// Run the function
 fetchSitemap();
