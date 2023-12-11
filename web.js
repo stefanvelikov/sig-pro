@@ -4,8 +4,8 @@ const fs = require('fs').promises;
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const processingDomain = 'https://agota-studio.webflow.io';
-const sitemapRealDomain = 'https://agota.studio';
+const processingDomain = 'https://signaturepro.webflow.io';
+const sitemapRealDomain = 'https://signaturedesign.pro';
 const sitemapUrl = `${processingDomain}/sitemap.xml`;
 const outputFolder = 'website';
 const sitemapFileName = 'sitemap.xml';

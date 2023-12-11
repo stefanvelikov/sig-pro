@@ -1,48 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://agota.studio/</loc>
+    <loc>https://signaturedesign.pro/</loc>
   </url>
   <url>
-    <loc>https://agota.studio/style-guide</loc>
+    <loc>https://signaturedesign.pro/home-bg</loc>
   </url>
   <url>
-    <loc>https://agota.studio/work</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/resources</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/work/upvio</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/contact</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/figma-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/adobe-xd-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/sketch-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/invision-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/affinity-designer-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/adobe-photoshop-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/adobe-illustrator-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/moqups-to-webflow</loc>
-  </url>
-  <url>
-    <loc>https://agota.studio/zeplin-to-webflow</loc>
+    <loc>https://signaturedesign.pro/signature-logo</loc>
   </url>
 </urlset>
