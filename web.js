@@ -71,9 +71,9 @@ async function fetchSitemap() {
         let cleanedContent = pageContent.data;
 
         if (!hasFormTag) {
-          cleanedContent = cleanedContent.replace(/data-wf-domain="[^"]*"/g, '')
-            .replace(/data-wf-page="[^"]*"/g, '')
-            .replace(/data-wf-site="[^"]*"/g, '');
+          // cleanedContent = cleanedContent.replace(/data-wf-domain="[^"]*"/g, '')
+          //  .replace(/data-wf-page="[^"]*"/g, '')
+          //  .replace(/data-wf-site="[^"]*"/g, '');
         }
 
         const parsedUrl = new URL(url.trim());
